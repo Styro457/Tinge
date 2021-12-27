@@ -15,6 +15,36 @@ class Object {
         this.components = [];
     }
 
+    /**
+     * Returns the position of the object
+     * @name getPosition
+     * @function
+     * @returns {Vector}
+     */
+    getPosition() {
+        return this.properties.position;
+    }
+
+    /**
+     * Returns the rotation of the object
+     * @name getRotation
+     * @function
+     * @returns {Vector}
+     */
+    getRotation() {
+        return this.properties.rotation;
+    }
+
+    /**
+     * Returns the scale of the object
+     * @name getScale
+     * @function
+     * @returns {Vector}
+     */
+    getScale() {
+        return this.properties.scale;
+    }
+
     addComponent(component) {
         this.components.push(component);
         component.properties.parent = this;
