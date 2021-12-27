@@ -3,7 +3,7 @@
  * Base class for objects.
  * @class Object
  * @constructor
- * @param {object} options Object properties
+ * @param {object} properties Object properties
  */
 class Object {
 
