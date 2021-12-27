@@ -14,7 +14,17 @@ class Scene {
     update() {
         this.objects.forEach(function (object, index) {
             object.components.forEach(function (component, index) {
+                component.onEarlyUpdate();
+            });
+        });
+        this.objects.forEach(function (object, index) {
+            object.components.forEach(function (component, index) {
                 component.onUpdate();
+            });
+        });
+        this.objects.forEach(function (object, index) {
+            object.components.forEach(function (component, index) {
+                component.onLateUpdate();
             });
         });
     }

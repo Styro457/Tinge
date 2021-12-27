@@ -29,6 +29,13 @@ class Component {
     onStart() {}
 
     /**
+     * Update function that is called every frame before onUpdate
+     * @name onUpdate
+     * @function
+     */
+    onEarlyUpdate() {}
+
+    /**
      * Update function that is called every frame
      * @name onUpdate
      * @function
@@ -36,7 +43,7 @@ class Component {
     onUpdate() {}
 
     /**
-     * Update function that is called every frame, after onUpdate
+     * Update function that is called every frame after onUpdate
      * @name onLateUpdate
      * @function
      */
