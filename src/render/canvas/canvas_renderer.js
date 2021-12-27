@@ -14,6 +14,7 @@ class CanvasRender extends Render {
 
     constructor(options) {
         super(options);
+        Render.instance = this;
         this.options.context =  this.options.canvas.getContext("2d");
     }
 
@@ -24,8 +25,6 @@ class CanvasRender extends Render {
     drawImage(texture, position, rotation, scale) {
         this.getContext().drawImage(texture.image, position.x, position.y, scale.x, scale.y);
     }
-
-
 
 }
 

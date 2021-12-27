@@ -9,6 +9,8 @@
  */
 class Render {
 
+    static instance;
+
     constructor(options) {
         this.options = options;
     }
