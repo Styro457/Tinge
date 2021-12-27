@@ -12,4 +12,11 @@ class Object {
         this.components = [];
     }
 
+    addComponent(component) {
+        this.components.push(component);
+        component.properties.parent = this;
+    }
+
 }
+
+export default Object;
