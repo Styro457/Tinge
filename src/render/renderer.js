@@ -1,7 +1,6 @@
 import Component from "../objects/component.js";
 
 /**
- * @classdesc
  * Base class for rendering components
  * @class Renderer
  * @constructor

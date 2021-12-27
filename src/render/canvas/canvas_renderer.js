@@ -1,7 +1,6 @@
 import Render from "../render.js"
 
 /**
- * @classdesc
  * Canvas render object
  * @class CanvasRender
  * @extends Render

@@ -1,6 +1,5 @@
 /**
- * @classdesc
- * a base render object
+ * A base render object
  * @class Render
  * @constructor
  * @param {object} options The renderer parameters
@@ -15,7 +14,7 @@ class Render {
     }
 
     /**
-     * Clear the canvas
+     * Clears the canvas
      * @name clear
      * @function
      */

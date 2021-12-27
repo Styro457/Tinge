@@ -1,7 +1,6 @@
 import Component from "./component.js";
 
 /**
- * @classdesc
  * Component with custom onStart and onUpdate functions used for easily making simple components
  * @class CustomComponent
  * @constructor

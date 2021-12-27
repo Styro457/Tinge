@@ -1,6 +1,5 @@
 /**
- * @classdesc
- * Scene object
+ * Scene class
  * @class Scene
  * @constructor
  * @param {object} options Scene options

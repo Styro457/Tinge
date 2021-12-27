@@ -1,5 +1,4 @@
 /**
- * @classdesc
  * Base class for objects.
  * @class Object
  * @constructor
