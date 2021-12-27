@@ -168,7 +168,7 @@ class Quadtree {
      * Returns all colliders that could collide with the given bounding box
      * @name retrieve
      * @function
-     * @param {Collider[]} returnColliders array to add the colliders to
+     * @param {Collider[]} returnColliders Array to add the colliders to
      * @param {Rectangle} boundingBox The bounding box that is being checked
      */
     retrieve(returnColliders, boundingBox) {
@@ -181,8 +181,5 @@ class Quadtree {
 
         return returnColliders;
     }
-
-
-
 
 }
