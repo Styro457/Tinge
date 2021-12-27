@@ -4,6 +4,8 @@ import Texture from "./image/texture.js"
 import Sprite from "./image/sprite.js"
 import Scene from "./scene/scene.js"
 import CustomComponent from "./objects/custom-component.js"
+import RigidBody from "./physics/rigidbody.js";
+import PhysicsEngine from "./physics/physics.js";
 
 class Game {
 
@@ -16,6 +18,10 @@ class Game {
         this.options.renderEngine = new CanvasRender({
             canvas: document.getElementById("tingeCanvas")
         });
+
+        new PhysicsEngine({
+            gravity: new Vector(0, 1),
+        })
 
 /*
         this.options.renderEngine.drawImage(new Texture("https://i.imgur.com/ZnVA1ma.png"), new Vector(75, 75), new Vector(0, 0), new Vector(160, 200));
