@@ -49,6 +49,7 @@ class Game {
                 component.getParent().properties.position.x += 1;
             }
         }))
+        image.addComponent(new RigidBody({}))
         this.activeScene.objects.push(image);
 
         window.requestAnimationFrame(this.gameLoop.bind(this));
