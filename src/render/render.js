@@ -43,6 +43,26 @@ class Render {
     }
 
     /**
+     * Returns the width of the canvas
+     * @name getWidth
+     * @function
+     * @returns {number}
+     */
+    getWidth() {
+        return this.options.width;
+    }
+
+    /**
+     * Returns the height of the canvas
+     * @name getHeight
+     * @function
+     * @returns {number}
+     */
+    getHeight() {
+        return this.options.height;
+    }
+
+    /**
      * Draw an image on the canvas
      * @name clear
      * @function
