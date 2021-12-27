@@ -4,6 +4,7 @@
  * @class Component
  * @constructor
  * @param {object} properties Component properties
+ * @param {Object} properties.parent The object the component is part of
  */
 class Component {
 
