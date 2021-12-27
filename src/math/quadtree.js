@@ -170,6 +170,7 @@ class Quadtree {
      * @function
      * @param {Collider[]} returnColliders Array to add the colliders to
      * @param {Rectangle} boundingBox The bounding box that is being checked
+     * @returns {Collider[]}
      */
     retrieve(returnColliders, boundingBox) {
         const index = this.getIndex(boundingBox);
