@@ -135,7 +135,7 @@ class Quadtree {
      */
     insert(collider) {
         if(this.nodes[0] != null) {
-            const index = this.getIndex(collider.getBoundingBox());
+            const index = this.getIndex(collider.boundingBox);
 
             if(index !== -1) {
                 this.nodes[index].insert(collider);
@@ -152,7 +152,7 @@ class Quadtree {
 
             let i = 0;
             while(i < this.objects.length) {
-                const index = this.getIndex(this.objects[i].getBoundingBox());
+                const index = this.getIndex(this.objects[i].boundingBox);
                 if(index !== -1) {
                     this.nodes[index].insert(this.objects[i]);
                     this.objects.splice(i, 1);
