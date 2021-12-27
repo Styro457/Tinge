@@ -45,6 +45,12 @@ class Object {
         return this.properties.scale;
     }
 
+    /**
+     * Add a component to the object
+     * @name addComponent
+     * @function
+     * @param {Component} component The component
+     */
     addComponent(component) {
         this.components.push(component);
         component.properties.parent = this;
