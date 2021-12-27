@@ -1,7 +1,7 @@
 import CanvasRender from "./render/canvas/canvas_renderer.js"
 import Vector from "./math/vector.js"
 import Texture from "./image/texture.js"
-import Sprite from "./objects/image/sprite.js"
+import Sprite from "./image/sprite.js"
 import Scene from "./scene/scene.js"
 import CustomComponent from "./objects/custom-component.js"
 

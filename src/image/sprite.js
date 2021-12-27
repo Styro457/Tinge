@@ -1,4 +1,4 @@
-import Object from "../object.js";
+import Object from "../objects/object.js";
 import SpriteRenderer from "./sprite-renderer.js"
 
 /**

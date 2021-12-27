@@ -1,5 +1,5 @@
 import Renderer from "../render/renderer.js";
-import Game from "../../game.js";
+import Game from "../game.js";
 
 /**
  * @classdesc
