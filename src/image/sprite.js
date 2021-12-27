@@ -2,7 +2,6 @@ import Object from "../objects/object.js";
 import SpriteRenderer from "./sprite-renderer.js"
 
 /**
- * @classdesc
  * Simple object with a texture
  * @class Sprite
  * @constructor

@@ -2,7 +2,6 @@ import Renderer from "../render/renderer.js";
 import Game from "../game.js";
 
 /**
- * @classdesc
  * Component for rendering sprites
  * @class SpriteRenderer
  * @constructor
