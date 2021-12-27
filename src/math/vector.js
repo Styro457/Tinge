@@ -5,6 +5,11 @@ class Vector {
         this.y = y;
     }
 
+    add(vector) {
+        this.x += vector.x;
+        this.y += vector.y;
+    }
+
 }
 
 export default Vector;
