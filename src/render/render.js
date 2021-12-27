@@ -21,7 +21,7 @@ class Render {
     clear() {}
 
     /**
-     * Return a reference to the screen canvas
+     * Returns a reference to the screen canvas
      * @name getCanvas
      * @function
      * @returns {HTMLCanvasElement}
@@ -31,7 +31,7 @@ class Render {
     }
 
     /**
-     * Return a reference to the screen canvas context
+     * Returns a reference to the screen canvas context
      * @name getCanvas
      * @function
      * @returns {CanvasRenderingContext2D | WebGLRenderingContext}
@@ -50,6 +50,7 @@ class Render {
      * @param {Vector} scale The scale of the image
      */
     drawImage(texture, position, rotation, scale) {}
+
 }
 
 export default Render;
