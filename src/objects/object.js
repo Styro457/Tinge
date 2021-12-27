@@ -4,6 +4,9 @@
  * @class Object
  * @constructor
  * @param {object} properties Object properties
+ * @param {Vector} properties.position The position of the object
+ * @param {Vector} properties.rotation The rotation of the object
+ * @param {Vector} properties.scale The scale of the object
  */
 class Object {
 
