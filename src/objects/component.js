@@ -12,6 +12,16 @@ class Component {
     }
 
     /**
+     * Returns the object that the component is part of
+     * @name getParent
+     * @function
+     * @returns {Object}
+     */
+    getParent() {
+        return this.properties.parent;
+    }
+
+    /**
      * Start function called after the component has been enabled
      * @name onStart
      * @function
