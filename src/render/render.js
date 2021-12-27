@@ -1,5 +1,5 @@
 /**
- * A base render object
+ * Base render object
  * @class Render
  * @constructor
  * @param {object} options The renderer parameters
