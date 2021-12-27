@@ -8,7 +8,7 @@
  * @param {number} options.height The height of the canvas without scaling
  * @param {HTMLCanvasElement} [options.canvas] The html canvas to draw to on screen
  */
-class Renderer {
+class RenderEngine {
 
     constructor(options) {
 
@@ -28,4 +28,8 @@ class Renderer {
      * @returns {HTMLCanvasElement}
      */
     getCanvas() {}
+
+    drawImage() {
+
+    }
 }
