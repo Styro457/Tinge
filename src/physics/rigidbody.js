@@ -29,6 +29,13 @@ class RigidBody extends PhysicsComponent {
          * @public
          */
         this.onGround = false;
+
+        /**
+         * The Collider component of the parent
+         * @type {Collider}
+         * @public
+         */
+        this.collider = undefined;
     }
     }
 
