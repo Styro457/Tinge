@@ -23,7 +23,7 @@ class CanvasRender extends Render {
     }
 
     drawImage(texture, position, rotation, scale) {
-        this.getContext().drawImage(texture.image, position.x, position.y, scale.x, scale.y);
+        this.getContext().drawImage(texture.image, position.x-(scale.x/2), position.y-(scale.y/2), scale.x, scale.y);
     }
 
 }

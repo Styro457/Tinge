@@ -4,14 +4,14 @@ class Rectangle {
 
     constructor(x, y, width, height) {
         /**
-         * The height of the rectangle
+         * The x coordinate of the rectangle's center
          * @type {number}
          * @public
          */
         this.x = x;
 
         /**
-         * The y coordinate of the rectangles bottom left corner
+         * The y coordinate of the rectangle's center
          * @type {number}
          * @public
          */
