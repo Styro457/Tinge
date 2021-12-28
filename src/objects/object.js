@@ -7,6 +7,7 @@
  * @param {Vector} properties.rotation The rotation of the object
  * @param {Vector} properties.scale The scale of the object
  */
+
 class Object {
 
     constructor(properties) {
@@ -53,6 +54,38 @@ class Object {
     addComponent(component) {
         this.components.push(component);
         component.properties.parent = this;
+        this.getComponent()
+    }
+
+    /**
+     * Returns the first component of a specific type from the object
+     * @name getComponent
+     * @function
+     * @param {object} type The component type
+     */
+    getComponent(type) {
+        this.components.forEach(function(component) {
+            if(component.constructor === type) {
+                return component;
+            }
+        })
+        return undefined;
+    }
+
+    /**
+     * Returns all the components of a specific type from the object
+     * @name getComponents
+     * @function
+     * @param {object} type The component type
+     */
+    getComponents(type) {
+        const result = [];
+        this.components.forEach(function(component) {
+            if(component.constructor === type.constructor) {
+                result.push(component);
+            }
+        })
+        return result;
     }
 
 }
