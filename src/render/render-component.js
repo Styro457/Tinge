@@ -12,10 +12,6 @@ class RenderComponent extends Component {
         super(properties);
     }
 
-    onUpdate() {
-
-    }
-
 }
 
 export default RenderComponent;
