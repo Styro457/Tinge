@@ -1,7 +1,7 @@
 import Component from "./component.js";
 
 /**
- * Component with custom onStart and onUpdate functions used for easily making simple components
+ * Component with custom onStart and onUpdate functions used for easily making simple custom components
  * @class CustomComponent
  * @constructor
  * @param {object} properties Component properties
