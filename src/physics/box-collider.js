@@ -43,6 +43,10 @@ class BoxCollider extends Collider {
         return Math.abs(this.boundingBox.x - collider.boundingBox.x) <= Math.abs(this.boundingBox.width + collider.boundingBox.width)/2 &&
                 Math.abs(this.boundingBox.y - collider.boundingBox.y) <= Math.abs(this.boundingBox.height + collider.boundingBox.height)/2;
     }
+    getSurface() {
+        return new Vector(this.boundingBox.width, this.boundingBox.height);
+    }
+
     getDragCoefficient() {
         return BoxCollider.DRAG_COEFFICIENT;
     }

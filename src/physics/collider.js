@@ -49,6 +49,14 @@ class Collider extends PhysicsComponent {
      */
     collidesWith(collider) {}
 
+    /**
+     * Returns the surface of the collider
+     * @name getSurface
+     * @function
+     * @returns {Vector}
+     */
+    getSurface() {}
+
     getDragCoefficient() {
         return Collider.DRAG_COEFFICIENT;
     }
