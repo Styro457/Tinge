@@ -1,0 +1,6 @@
+class InputAction {
+
+    constructor() {
+    }
+
+}
