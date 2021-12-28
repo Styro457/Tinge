@@ -1,20 +1,20 @@
-import Render from "../render.js"
+import Renderer from "../renderer.js"
 
 /**
  * Canvas render object
- * @class CanvasRender
- * @extends Render
+ * @class CanvasRenderer
+ * @extends Renderer
  * @constructor
  * @param {object} options The renderer parameters
  * @param {number} options.width The width of the canvas without scaling
  * @param {number} options.height The height of the canvas without scaling
  * @param {HTMLCanvasElement} [options.canvas] The html canvas to draw to on screen
  */
-class CanvasRender extends Render {
+class CanvasRenderer extends Renderer {
 
     constructor(options) {
         super(options);
-        Render.instance = this;
+        Renderer.instance = this;
         this.options.context =  this.options.canvas.getContext("2d");
     }
 
@@ -28,4 +28,4 @@ class CanvasRender extends Render {
 
 }
 
-export default CanvasRender;
+export default CanvasRenderer;

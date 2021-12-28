@@ -1,4 +1,4 @@
-import CanvasRender from "./render/canvas/canvas_renderer.js"
+import CanvasRenderer from "./render/canvas/canvas_renderer.js"
 import Vector from "./math/vector.js"
 import Texture from "./image/texture.js"
 import Sprite from "./image/sprite.js"
@@ -16,7 +16,7 @@ class Game {
         Game.instance = this;
 
         this.options = options;
-        this.renderEngine = new CanvasRender({
+        this.renderEngine = new CanvasRenderer({
             canvas: document.getElementById("tingeCanvas"),
             width: 1280,
             height: 720

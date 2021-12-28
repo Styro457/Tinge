@@ -1,13 +1,13 @@
 /**
  * Base render object
- * @class Render
+ * @class Renderer
  * @constructor
  * @param {object} options The renderer parameters
  * @param {number} options.width The width of the canvas without scaling
  * @param {number} options.height The height of the canvas without scaling
  * @param {HTMLCanvasElement} [options.canvas] The html canvas to draw to on screen
  */
-class Render {
+class Renderer {
 
     static instance;
 
@@ -75,4 +75,4 @@ class Render {
 
 }
 
-export default Render;
+export default Renderer;

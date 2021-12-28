@@ -1,5 +1,5 @@
 import RenderComponent from "../render/render-component.js";
-import Render from "../render/render.js";
+import Renderer from "../render/renderer.js";
 
 /**
  * Component for rendering sprites
@@ -16,7 +16,7 @@ class SpriteRenderer extends RenderComponent {
     }
 
     onUpdate() {
-        Render.instance.drawImage(this.properties.texture, this.properties.parent.properties.position, this.properties.parent.properties.rotation, this.properties.parent.properties.scale);
+        Renderer.instance.drawImage(this.properties.texture, this.properties.parent.properties.position, this.properties.parent.properties.rotation, this.properties.parent.properties.scale);
     }
 
 }
