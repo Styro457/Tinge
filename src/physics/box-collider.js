@@ -8,6 +8,7 @@ import Rectangle from "../math/shapes/rectangle.js";
  * @param {object} properties Component properties
  * @param {Vector} properties.offset Offset from the center of the parent
  * @param {Vector} properties.size The size of the collider
+ * @param {RigidBody} rigidBody The RigidBody component of the parent
  */
 class BoxCollider extends Collider {
 

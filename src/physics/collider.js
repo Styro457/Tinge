@@ -6,6 +6,7 @@ import PhysicsComponent from "./physics-component.js";
  * @class Collider
  * @constructor
  * @param {object} properties Component properties
+ * @param {RigidBody} rigidBody The RigidBody component of the parent
  */
 class Collider extends PhysicsComponent {
 
@@ -13,6 +14,14 @@ class Collider extends PhysicsComponent {
 
     constructor(properties, rigidBody) {
         super(properties);
+
+        /**
+         * The RigidBody component of the parent
+         * @type {RigidBody}
+         * @public
+         */
+        this.rigidBody = rigidBody;
+        this.rigidBody.collider = this;
 
         /**
          * The bounding box of the collider
@@ -49,6 +58,11 @@ class Collider extends PhysicsComponent {
     }
 
     onEarlyUpdate() {
+        if(this.rigidBody.isKinematic())
+            return;
+
+        this.rigidBody.onGround = false;
+
         const closeColliders = [];
         PhysicsEngine.instance.quadtree.retrieve(closeColliders, this.boundingBox);
         closeColliders.forEach(collider => {
