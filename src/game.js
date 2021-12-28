@@ -23,7 +23,7 @@ class Game {
         });
 
         this.physicsEngine = new PhysicsEngine({
-            gravity: new Vector(0, 30),
+            gravity: new Vector(0, 50),
         })
 
 /*
