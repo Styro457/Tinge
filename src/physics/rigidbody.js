@@ -8,6 +8,7 @@ import PhysicsComponent from "./physics-component.js";
  * @constructor
  * @param {object} properties Component properties
  * @param {number} properties.mass The mass of the object
+ * @param {number} properties.elasticity The coefficient of elasticity of the object (between 1 and 0)
  * @param {boolean} properties.isKinematic Whether physics affects the rigidbody
  */
 class RigidBody extends PhysicsComponent {
@@ -57,6 +58,26 @@ class RigidBody extends PhysicsComponent {
      */
     getMass() {
         return this.properties.mass;
+    }
+
+    /**
+     * Changes the coefficient of elasticity of the object
+     * @name setElasticity
+     * @function
+     * @param {number} value The new coefficient of elasticity (should be between 1 and 0)
+     */
+    setElasticity(value) {
+        this.properties.elasticity = value;
+    }
+
+    /**
+     * Returns the coefficient of elasticity of the object
+     * @name getElasticity
+     * @function
+     * @returns {number}
+     */
+    getElasticity() {
+        return this.properties.elasticity;
     }
 
     onPhysicsUpdate() {
