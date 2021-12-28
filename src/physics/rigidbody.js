@@ -1,6 +1,7 @@
 import Vector from "../math/vector.js"
 import PhysicsEngine from "./physics.js";
 import PhysicsComponent from "./physics-component.js";
+import Time from "../system/time.js";
 
 /**
  * Component that handles the physics of an object
@@ -108,8 +109,9 @@ class RigidBody extends PhysicsComponent {
             this.velocity.addV(PhysicsEngine.instance.options.gravity)
         }
 
-        this.velocity.add(PhysicsEngine.instance.options.gravity)
-        this.getParent().getPosition().add(this.velocity);
+
+        this.getParent().getPosition().x += this.velocity.x * Time.deltaTime;
+        this.getParent().getPosition().y += this.velocity.y * Time.deltaTime;
     }
 
 }
