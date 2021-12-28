@@ -37,15 +37,9 @@ class BoxCollider extends Collider {
     }
 
     collidesWith(collider) {
-        const bottomY = this.boundingBox.y + this.boundingBox.height;
-        const colliderBottomY = collider.boundingBox.y + collider.boundingBox.height;
-        const rightX = this.boundingBox.x + this.boundingBox.width;
-        const colliderRightX = collider.boundingBox.x + collider.boundingBox.width;
-
-        return (this.boundingBox.y > collider.boundingBox.y && this.boundingBox.y < colliderBottomY ||
-                bottomY > collider.boundingBox.y && bottomY < colliderBottomY) &&
-                (this.boundingBox.x > collider.boundingBox.x && this.boundingBox.x < colliderRightX ||
-                rightX > collider.boundingBox.x && rightX < colliderRightX);
+        return Math.abs(this.boundingBox.x - collider.boundingBox.x) <= Math.abs(this.boundingBox.width + collider.boundingBox.width)/2 &&
+                Math.abs(this.boundingBox.y - collider.boundingBox.y) <= Math.abs(this.boundingBox.height + collider.boundingBox.height)/2;
+    }
     }
 
     onPhysicsUpdate() {
