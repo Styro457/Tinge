@@ -1,5 +1,5 @@
 import Renderer from "../render/renderer.js";
-import Game from "../game.js";
+import Render from "../render/render.js";
 
 /**
  * Component for rendering sprites
@@ -16,7 +16,7 @@ class SpriteRenderer extends Renderer {
     }
 
     onUpdate() {
-        Game.instance.options.renderEngine.drawImage(this.properties.texture, this.properties.parent.properties.position, this.properties.parent.properties.rotation, this.properties.parent.properties.scale);
+        Render.instance.drawImage(this.properties.texture, this.properties.parent.properties.position, this.properties.parent.properties.rotation, this.properties.parent.properties.scale);
     }
 
 }
