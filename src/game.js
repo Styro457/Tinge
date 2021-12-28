@@ -6,6 +6,7 @@ import Scene from "./scene/scene.js"
 import CustomComponent from "./objects/custom-component.js"
 import RigidBody from "./physics/rigidbody.js";
 import PhysicsEngine from "./physics/physics.js";
+import BoxCollider from "./physics/box-collider.js";
 
 class Game {
 
@@ -15,12 +16,14 @@ class Game {
         Game.instance = this;
 
         this.options = options;
-        this.options.renderEngine = new CanvasRender({
-            canvas: document.getElementById("tingeCanvas")
+        this.renderEngine = new CanvasRender({
+            canvas: document.getElementById("tingeCanvas"),
+            width: 1280,
+            height: 720
         });
 
-        new PhysicsEngine({
-            gravity: new Vector(0, 1),
+        this.physicsEngine = new PhysicsEngine({
+            gravity: new Vector(0, 0),
         })
 
 /*
@@ -44,18 +47,42 @@ class Game {
             scale: new Vector(160, 200)
         }, new Texture("https://i.imgur.com/ZnVA1ma.png"));
 
-        image.addComponent(new CustomComponent({
-            onUpdate: function(component) {
-                component.getParent().properties.position.x += 1;
-            }
-        }))
-        image.addComponent(new RigidBody({}))
+        const rigidBody = new RigidBody({});
+        rigidBody.velocity.y = 15;
+        image.addComponent(rigidBody)
+        const boxCollider = new BoxCollider({
+            offset: Vector.zero,
+            size: new Vector(160, 200)
+        })
+        boxCollider.onCollision = function() {
+            console.log("COLLISION: ");
+            image.getPosition().y  -= 5;
+            rigidBody.velocity.y = 0;
+        }
+        image.addComponent(boxCollider)
         this.activeScene.objects.push(image);
+
+        const floor = new Sprite({
+            position: new Vector(1, 600),
+            rotation: new Vector(0, 0),
+            scale: new Vector(500, 20)
+        }, new Texture("https://i.imgur.com/ZnVA1ma.png"));
+
+        const b2 = new BoxCollider({
+            offset: Vector.zero,
+            size: new Vector(500, 20)
+        });
+        b2.onCollision = function () {
+            //console.log("COLLISION2: ");
+        }
+        floor.addComponent(b2)
+        this.activeScene.objects.push(floor);
 
         window.requestAnimationFrame(this.gameLoop.bind(this));
     }
 
     gameLoop() {
+        this.physicsEngine.update();
         this.activeScene.update();
         window.requestAnimationFrame(this.gameLoop.bind(this));
     }
