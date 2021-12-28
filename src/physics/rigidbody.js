@@ -37,6 +37,13 @@ class RigidBody extends PhysicsComponent {
          */
         this.collider = undefined;
     }
+
+    addForce(acceleration) {
+        const multiplier = this.velocity.clone().multiply(this.getMass()/1000).add(0.1);
+        if(multiplier.x > 1) multiplier.x = 1;
+        if(multiplier.y > 1) multiplier.y = 1;
+
+        this.velocity.addV(acceleration.multiply(this.getMass()).multiplyV(multiplier));
     }
 
     /**
@@ -49,6 +56,8 @@ class RigidBody extends PhysicsComponent {
         return this.properties.isKinematic;
     }
 
+    /**
+     * Changes the mass of the object
      * @name setMass
      * @function
      * @param {number} value The new mass
@@ -93,6 +102,7 @@ class RigidBody extends PhysicsComponent {
             this.velocity.y = 0;
             return;
         }
+
         //add gravity
         if(!this.onGround) {
             this.velocity.addV(PhysicsEngine.instance.options.gravity)
