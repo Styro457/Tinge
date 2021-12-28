@@ -7,6 +7,8 @@ import PhysicsComponent from "./physics-component.js";
  * @class RigidBody
  * @constructor
  * @param {object} properties Component properties
+ * @param {number} properties.mass The mass of the object
+ * @param {boolean} properties.isKinematic Whether physics affects the rigidbody
  */
 class RigidBody extends PhysicsComponent {
 
@@ -37,6 +39,24 @@ class RigidBody extends PhysicsComponent {
      */
     isKinematic() {
         return this.properties.isKinematic;
+    }
+
+     * @name setMass
+     * @function
+     * @param {number} value The new mass
+     */
+    setMass(value) {
+        this.properties.mass = value;
+    }
+
+    /**
+     * Returns the mass of the object
+     * @name getMass
+     * @function
+     * @returns {number}
+     */
+    getMass() {
+        return this.properties.mass;
     }
 
     onPhysicsUpdate() {
