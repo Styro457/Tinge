@@ -11,8 +11,10 @@ import Rectangle from "../math/shapes/rectangle.js";
  */
 class BoxCollider extends Collider {
 
-    constructor(properties) {
-        super(properties);
+    static DRAG_COEFFICIENT = 1;
+
+    constructor(properties, rigidBody) {
+        super(properties, rigidBody);
         this.boundingBox = new Rectangle(0, 0, properties.size.x, properties.size.y);
     }
 
@@ -40,6 +42,8 @@ class BoxCollider extends Collider {
         return Math.abs(this.boundingBox.x - collider.boundingBox.x) <= Math.abs(this.boundingBox.width + collider.boundingBox.width)/2 &&
                 Math.abs(this.boundingBox.y - collider.boundingBox.y) <= Math.abs(this.boundingBox.height + collider.boundingBox.height)/2;
     }
+    getDragCoefficient() {
+        return BoxCollider.DRAG_COEFFICIENT;
     }
 
     onPhysicsUpdate() {

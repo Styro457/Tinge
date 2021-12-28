@@ -9,7 +9,9 @@ import PhysicsComponent from "./physics-component.js";
  */
 class Collider extends PhysicsComponent {
 
-    constructor(properties) {
+    static DRAG_COEFFICIENT = 1;
+
+    constructor(properties, rigidBody) {
         super(properties);
 
         /**
@@ -37,6 +39,10 @@ class Collider extends PhysicsComponent {
      * @returns {boolean}
      */
     collidesWith(collider) {}
+
+    getDragCoefficient() {
+        return Collider.DRAG_COEFFICIENT;
+    }
 
     onPhysicsUpdate() {
         PhysicsEngine.instance.quadtree.insert(this);
