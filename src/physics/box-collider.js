@@ -48,14 +48,14 @@ class BoxCollider extends Collider {
                 rightX > collider.boundingBox.x && rightX < colliderRightX);
     }
 
-    onEarlyUpdate() {
+    onPhysicsUpdate() {
         //Update the position of the bounding box
         const position = this.getParent().getPosition()
         const size = this.getSize();
         this.boundingBox.x = position.x//-size.x/2;
         this.boundingBox.y = position.y//-size.y/2;
 
-        super.onEarlyUpdate();
+        super.onPhysicsUpdate();
     }
 }
 

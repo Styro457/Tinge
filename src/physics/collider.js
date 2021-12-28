@@ -1,6 +1,5 @@
-import Component from "../objects/component.js";
 import PhysicsEngine from "./physics.js";
-import Rectangle from "../math/shapes/rectangle.js";
+import PhysicsComponent from "./physics-component.js";
 
 /**
  * Base class for colliders
@@ -8,7 +7,7 @@ import Rectangle from "../math/shapes/rectangle.js";
  * @constructor
  * @param {object} properties Component properties
  */
-class Collider extends Component {
+class Collider extends PhysicsComponent {
 
     constructor(properties) {
         super(properties);
@@ -39,11 +38,11 @@ class Collider extends Component {
      */
     collidesWith(collider) {}
 
-    onEarlyUpdate() {
+    onPhysicsUpdate() {
         PhysicsEngine.instance.quadtree.insert(this);
     }
 
-    onUpdate() {
+    onEarlyUpdate() {
         const closeColliders = [];
         PhysicsEngine.instance.quadtree.retrieve(closeColliders, this.boundingBox);
         closeColliders.forEach(collider => {

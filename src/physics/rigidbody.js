@@ -1,6 +1,6 @@
-import Component from "../objects/component.js";
 import Vector from "../math/vector.js"
 import PhysicsEngine from "./physics.js";
+import PhysicsComponent from "./physics-component.js";
 
 /**
  * Component that handles the physics of an object
@@ -8,7 +8,7 @@ import PhysicsEngine from "./physics.js";
  * @constructor
  * @param {object} properties Component properties
  */
-class RigidBody extends Component {
+class RigidBody extends PhysicsComponent {
 
     constructor(properties) {
         super(properties);
@@ -21,7 +21,7 @@ class RigidBody extends Component {
         this.velocity = Vector.zero;
     }
 
-    onUpdate() {
+    onPhysicsUpdate() {
         this.velocity.add(PhysicsEngine.instance.options.gravity)
         this.getParent().getPosition().add(this.velocity);
     }
