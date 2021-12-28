@@ -7,6 +7,7 @@ import PhysicsComponent from "./physics-component.js";
  * @class RigidBody
  * @constructor
  * @param {object} properties Component properties
+ * @param {boolean} properties.isKinematic Whether physics affects the rigidbody.
  */
 class RigidBody extends PhysicsComponent {
 
@@ -21,7 +22,20 @@ class RigidBody extends PhysicsComponent {
         this.velocity = Vector.zero;
     }
 
+    /**
+     * Whether physics affects the rigidbody.
+     * @name isKinematic
+     * @function
+     * @returns {boolean}
+     */
+    isKinematic() {
+        return this.properties.isKinematic;
+    }
+
     onPhysicsUpdate() {
+        if(this.isKinematic())
+            return;
+
         this.velocity.add(PhysicsEngine.instance.options.gravity)
         this.getParent().getPosition().add(this.velocity);
     }
