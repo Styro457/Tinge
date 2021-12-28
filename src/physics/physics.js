@@ -13,6 +13,8 @@ class PhysicsEngine {
 
     static instance;
 
+    static AIR_DENSITY = 0.0000045;
+
     constructor(options) {
         PhysicsEngine.instance = this;
 
