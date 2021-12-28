@@ -29,7 +29,7 @@ class Collider extends PhysicsComponent {
     }
 
     /**
-     * Returns whether or not this collider touches another collider
+     * Returns whether this collider touches another collider
      * @name collidesWith
      * @private
      * @function
