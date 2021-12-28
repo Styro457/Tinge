@@ -76,7 +76,6 @@ class BoxCollider extends Collider {
 
         for(let i = 1; i < 4; i++) {
             if(penetration[i] === undefined) {
-                console.log("ABC");
                 penetration[i] = 0;
             }
             else if(penetration[i] > penetration[bestAxis]) {

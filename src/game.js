@@ -57,13 +57,7 @@ class Game {
             offset: Vector.zero,
             size: new Vector(160, 200)
         }, rigidBody)
-        boxCollider.onCollision = function() {
-            console.log("COLLISION: ");
-/*            rigidBody.velocity.y = 0;
-            PhysicsEngine.instance.options.gravity.y = 0;*/
-/*            image.getPosition().y  -= 5;
-            rigidBody.velocity.y = 0;*/
-        }
+
         image.addComponent(boxCollider)
 /*        image.addComponent(new CustomComponent({
             onUpdate: function(component){
@@ -89,9 +83,6 @@ class Game {
             offset: Vector.zero,
             size: new Vector(1000, 40)
         }, r2);
-        b2.onCollision = function () {
-            //console.log("COLLISION2: ");
-        }
         floor.addComponent(b2)
         this.activeScene.objects.push(floor);
 
