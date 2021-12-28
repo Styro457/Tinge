@@ -184,3 +184,5 @@ class Quadtree {
     }
 
 }
+
+export default Quadtree;
