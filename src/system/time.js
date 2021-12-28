@@ -1,4 +1,3 @@
-
 class Time {
 
     static lastTime = 0;
