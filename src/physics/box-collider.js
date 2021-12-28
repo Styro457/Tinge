@@ -1,5 +1,6 @@
 import Collider from "./collider.js";
 import Rectangle from "../math/shapes/rectangle.js";
+import Vector from "../math/vector.js";
 
 /**
  * Box Collider
@@ -43,6 +44,66 @@ class BoxCollider extends Collider {
         return Math.abs(this.boundingBox.x - collider.boundingBox.x) <= Math.abs(this.boundingBox.width + collider.boundingBox.width)/2 &&
                 Math.abs(this.boundingBox.y - collider.boundingBox.y) <= Math.abs(this.boundingBox.height + collider.boundingBox.height)/2;
     }
+
+    handleCollision(collider) {
+        const penetration = new Array(4);
+
+        const rightEdge = this.boundingBox.x + this.boundingBox.width/2;
+        const colliderRightEdge = collider.boundingBox.x + collider.boundingBox.width/2;
+        const leftEdge = this.boundingBox.x - this.boundingBox.width/2;
+        const colliderLeftEdge = collider.boundingBox.x - collider.boundingBox.width/2;
+
+        if(rightEdge < colliderRightEdge) {
+            penetration[0] = rightEdge-colliderLeftEdge; // penetration on the right
+        }
+        else if(leftEdge > colliderLeftEdge) {
+            penetration[1] = colliderRightEdge-leftEdge; // penetration on the left
+        }
+
+        const topEdge = this.boundingBox.y - this.boundingBox.height/2;
+        const colliderTopEdge = collider.boundingBox.y - collider.boundingBox.height/2;
+        const bottomEdge = this.boundingBox.y + this.boundingBox.height/2;
+        const colliderBottomEdge = collider.boundingBox.y + collider.boundingBox.height/2;
+
+        if(topEdge > colliderTopEdge) {
+            penetration[2] = colliderBottomEdge-topEdge; // penetration on the top
+        }
+        else if(bottomEdge < colliderBottomEdge) {
+            penetration[3] = bottomEdge-colliderTopEdge; // penetration on the bottom
+        }
+
+        let bestAxis = 0;
+
+        for(let i = 1; i < 4; i++) {
+            if(penetration[i] === undefined) {
+                console.log("ABC");
+                penetration[i] = 0;
+            }
+            else if(penetration[i] > penetration[bestAxis]) {
+                bestAxis = i;
+            }
+        }
+
+        const elasticity = (this.rigidBody.getElasticity()+collider.rigidBody.getElasticity())/2;
+        if(bestAxis === 0 || bestAxis === 1) {
+            //push objects apart
+            //penetration[2] - penetration on top
+            //penetration[3] - penetration on the bottom
+            if(penetration[3] > penetration[2])
+                this.getParent().getPosition().y -= penetration[3];
+            else
+                this.getParent().getPosition().y += penetration[2];
+
+            this.rigidBody.addForce(new Vector(0, -(1+elasticity)*(this.rigidBody.velocity.y-collider.rigidBody.velocity.y)));
+            this.rigidBody.onGround = true;
+        }
+        else {
+            this.rigidBody.velocity.x -= collider.rigidBody.velocity.x;
+            this.rigidBody.velocity.x *= -1*elasticity;
+        }
+
+    }
+
     getSurface() {
         return new Vector(this.boundingBox.width, this.boundingBox.height);
     }

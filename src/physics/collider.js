@@ -50,6 +50,15 @@ class Collider extends PhysicsComponent {
     collidesWith(collider) {}
 
     /**
+     * Handles the physics of a collision
+     * @name handleCollision
+     * @private
+     * @function
+     * @param {Collider} collider The other collider
+     */
+    handleCollision(collider) {}
+
+    /**
      * Returns the surface of the collider
      * @name getSurface
      * @function
@@ -75,6 +84,7 @@ class Collider extends PhysicsComponent {
         PhysicsEngine.instance.quadtree.retrieve(closeColliders, this.boundingBox);
         closeColliders.forEach(collider => {
             if(this.collidesWith(collider) && collider !== this) {
+                this.handleCollision(collider);
                 if(this.onCollision != null) {
                     this.onCollision();
                 }
