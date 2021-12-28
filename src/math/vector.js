@@ -7,9 +7,38 @@ class Vector {
         this.y = y;
     }
 
-    add(vector) {
+    addV(vector) {
         this.x += vector.x;
         this.y += vector.y;
+        return this;
+    }
+
+    add(value) {
+        this.x += value;
+        this.y += value;
+        return this;
+    }
+
+    subtract(vector) {
+        this.x -= vector.x;
+        this.y -= vector.y;
+        return this;
+    }
+
+    multiply(value) {
+        this.x *= value;
+        this.y *= value;
+        return this;
+    }
+
+    multiplyV(vector) {
+        this.x *= vector.x;
+        this.y *= vector.y;
+        return this;
+    }
+
+    clone() {
+        return new Vector(this.x, this.y);
     }
 
 }
