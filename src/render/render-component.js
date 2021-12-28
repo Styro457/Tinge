@@ -2,11 +2,11 @@ import Component from "../objects/component.js";
 
 /**
  * Base class for rendering components
- * @class Renderer
+ * @class RenderComponent
  * @constructor
  * @param {object} properties Component properties
  */
-class Renderer extends Component {
+class RenderComponent extends Component {
 
     constructor(properties) {
         super(properties);
@@ -18,4 +18,4 @@ class Renderer extends Component {
 
 }
 
-export default Renderer;
+export default RenderComponent;

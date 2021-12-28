@@ -1,4 +1,4 @@
-import Renderer from "../render/renderer.js";
+import RenderComponent from "../render/render-component.js";
 import Render from "../render/render.js";
 
 /**
@@ -9,7 +9,7 @@ import Render from "../render/render.js";
  * @param {Texture} properties.texture The texture of the sprite
  * @param {Object} properties.parent The object the component is part of
  */
-class SpriteRenderer extends Renderer {
+class SpriteRenderer extends RenderComponent {
 
     constructor(properties) {
         super(properties);
