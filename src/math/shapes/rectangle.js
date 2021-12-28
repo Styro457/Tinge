@@ -1,37 +1,34 @@
 class Rectangle {
 
-    /**
-     * The x coordinate of the rectangles bottom left corner
-     * @name x
-     * @type {number}
-     */
-    x;
-
-    /**
-     * The y coordinate of the rectangles bottom left corner
-     * @name y
-     * @type {number}
-     */
-    y;
-
-    /**
-     * The width of the rectangle
-     * @name width
-     * @type {number}
-     */
-    width;
-
-    /**
-     * The height of the rectangle
-     * @name height
-     * @type {number}
-     */
-    height;
+    static zero = new Rectangle(0, 0, 0, 0);
 
     constructor(x, y, width, height) {
+        /**
+         * The height of the rectangle
+         * @type {number}
+         * @public
+         */
         this.x = x;
+
+        /**
+         * The y coordinate of the rectangles bottom left corner
+         * @type {number}
+         * @public
+         */
         this.y = y;
+
+        /**
+         * The width of the rectangle
+         * @type {number}
+         * @public
+         */
         this.width = width;
+
+        /**
+         * The height of the rectangle
+         * @type {number}
+         * @public
+         */
         this.height = height;
     }
 

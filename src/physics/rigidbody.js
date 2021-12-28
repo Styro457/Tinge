@@ -3,7 +3,6 @@ import Vector from "../math/vector.js"
 import PhysicsEngine from "./physics.js";
 
 /**
- *
  * Component that handles the physics of an object
  * @class RigidBody
  * @constructor
@@ -11,20 +10,15 @@ import PhysicsEngine from "./physics.js";
  */
 class RigidBody extends Component {
 
-    /**
-     * The velocity of the object
-     * @public
-     * @name velocity
-     * @type {Vector}
-     */
-    velocity = Vector.zero;
-
     constructor(properties) {
         super(properties);
-    }
 
-    onStart() {
-
+        /**
+         * The velocity of the object
+         * @type {Vector}
+         * @public
+         */
+        this.velocity = Vector.zero;
     }
 
     onUpdate() {

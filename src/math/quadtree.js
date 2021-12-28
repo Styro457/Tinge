@@ -22,31 +22,33 @@ class Quadtree {
      */
     static MAX_LEVELS = 5;
 
-    /**
-     * The current node level
-     * @name objects
-     * @type {Collider[]}
-     */
-    objects;
-
-    /**
-     * The bounds of the node
-     * @name bounds
-     * @type {Rectangle}
-     */
-    bounds;
-
-    /**
-     * The four subnodes
-     * @name nodes
-     * @type {Quadtree[]}
-     */
-    nodes;
-
     constructor(level, bounds) {
+        /**
+         * The current node level
+         * @type {number}
+         * @public
+         */
         this.level = level;
+
+        /**
+         * The colliders in this node
+         * @type {Collider[]}
+         * @public
+         */
         this.objects = [];
+
+        /**
+         * The bounds of the node
+         * @type {Rectangle}
+         * @public
+         */
         this.bounds = bounds;
+
+        /**
+         * The four subnodes
+         * @type {Quadtree[]}
+         * @public
+         */
         this.nodes = new Array(4);
     }
 
