@@ -10,7 +10,7 @@ import Time from "../system/time.js";
  * @param {object} properties Component properties
  * @param {number} properties.mass The mass of the object
  * @param {number} properties.elasticity The coefficient of elasticity of the object (between 1 and 0)
- * @param {boolean} properties.isKinematic Whether physics affects the rigidbody
+ * @param {boolean} properties.isKinematic Whether physics affect the rigidbody
  */
 class RigidBody extends PhysicsComponent {
 
@@ -39,6 +39,12 @@ class RigidBody extends PhysicsComponent {
         this.collider = undefined;
     }
 
+    /**
+     * Adds a force to the rigidbody
+     * @name addForce
+     * @function
+     * @param {Vector} acceleration The force vector
+     */
     addForce(acceleration) {
         const multiplier = this.velocity.clone().multiply(this.getMass()/1000).add(0.1);
         if(multiplier.x > 1) multiplier.x = 1;
@@ -48,7 +54,7 @@ class RigidBody extends PhysicsComponent {
     }
 
     /**
-     * Whether physics affects the rigidbody.
+     * Whether physics affect the rigidbody.
      * @name isKinematic
      * @function
      * @returns {boolean}
