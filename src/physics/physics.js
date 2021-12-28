@@ -1,5 +1,8 @@
+import Render from "../render/render.js";
+import Quadtree from "../math/quadtree.js";
+import Rectangle from "../math/shapes/rectangle.js";
+
 /**
- * @classdesc
  * Physics engine class
  * @class PhysicsEngine
  * @constructor
@@ -14,6 +17,17 @@ class PhysicsEngine {
         PhysicsEngine.instance = this;
 
         this.options = options;
+
+        /**
+         * Quadtree used for optimising collision detection
+         * @type {Quadtree}
+         * @public
+         */
+        this.quadtree = new Quadtree(0, new Rectangle(0, 0, Render.instance.getWidth(), Render.instance.getHeight()));
+    }
+
+    update() {
+        this.quadtree.clear();
     }
 
 }
