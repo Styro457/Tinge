@@ -19,6 +19,13 @@ class RigidBody extends PhysicsComponent {
          * @public
          */
         this.velocity = new Vector(0, 0);
+
+        /**
+         * Whether the object is supported by something and is not falling
+         * @type {boolean}
+         * @public
+         */
+        this.onGround = false;
     }
     }
 
