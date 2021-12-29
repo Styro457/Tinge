@@ -26,7 +26,7 @@ class Game {
         });
 
         this.renderEngine.mainCamera = new Camera({
-            position: new Vector(0, 0),
+            position: new Vector(0, -270),
             scale: new Vector(1, 1)
         });
 
@@ -37,7 +37,7 @@ class Game {
         this.activeScene = new Scene();
 
         const background = new Sprite({
-            position: new Vector(500, 500),
+            position: new Vector(0, 0),
             rotation: new Vector(0, 0),
             scale: new Vector(4000, 2000)
         }, new Texture("https://i.imgur.com/IsSNQSG.png"));
@@ -46,7 +46,7 @@ class Game {
 
 
         const player = new Sprite({
-            position: new Vector(200, 20),
+            position: new Vector(-500, -400),
             rotation: new Vector(0, 0),
             scale: new Vector(160, 200)
         }, new Texture("https://i.imgur.com/hDS6kU3.jpeg"));
@@ -68,12 +68,9 @@ class Game {
 
         let keys = {};
 
-        let wasOnGround = false;
-
         player.addComponent(new CustomComponent({
             onUpdate: function(){
                 Renderer.instance.mainCamera.getPosition().x = player.getPosition().x;
-                Renderer.instance.mainCamera.getPosition().y = player.getPosition().y;
                 if(keys[" "] && rigidBody.onGround) {
                     rigidBody.addForce(new Vector(0, -1000));
                 }
@@ -94,7 +91,7 @@ class Game {
         };
 
         const floor = new Sprite({
-            position: new Vector(500, 600),
+            position: new Vector(0, -10),
             rotation: new Vector(0, 0),
             scale: new Vector(2000, 80)
         }, new Texture("https://i.imgur.com/PfIilbS.png"));
@@ -115,7 +112,7 @@ class Game {
 
 
         const s1 = new Sprite({
-            position: new Vector(700, 500),
+            position: new Vector(20, -100),
             rotation: new Vector(0, 0),
             scale: new Vector(500, 80)
         }, new Texture("https://i.imgur.com/PfIilbS.png"));
