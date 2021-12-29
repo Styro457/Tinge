@@ -10,6 +10,13 @@ import Vector from "../math/vector.js";
  */
 class Camera extends Object {
 
+    constructor(properties) {
+        super(properties);
+        if (Renderer.instance.mainCamera === undefined) {
+            Renderer.instance.mainCamera = this;
+        }
+    }
+
     /**
      * Returns the position on the screen of a point in the world
      * @name worldToScreenPosition
