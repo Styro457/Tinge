@@ -19,7 +19,7 @@ class Vector {
         return this;
     }
 
-    subtract(vector) {
+    subtractV(vector) {
         this.x -= vector.x;
         this.y -= vector.y;
         return this;
