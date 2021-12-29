@@ -59,26 +59,6 @@ class Game {
 
         this.activeScene.objects.push(player);
 
-        const floor = new Sprite({
-            position: new Vector(500, 600),
-            rotation: new Vector(0, 0),
-            scale: new Vector(2000, 80)
-        }, new Texture("https://i.imgur.com/PfIilbS.png"));
-
-        const r2 = new RigidBody({
-            mass: 1,
-            elasticity: 0.1,
-            isKinematic: true
-        })
-        floor.addComponent(r2)
-
-        const b2 = new BoxCollider({
-            offset: Vector.zero,
-            size: new Vector(2000, 80)
-        }, r2);
-        floor.addComponent(b2)
-        this.activeScene.objects.push(floor);
-
         let keys = {};
 
         let wasOnGround = false;
@@ -103,6 +83,47 @@ class Game {
         document.onkeyup = function (e) {
             keys[e.key] = false;
         };
+
+        const floor = new Sprite({
+            position: new Vector(500, 600),
+            rotation: new Vector(0, 0),
+            scale: new Vector(2000, 80)
+        }, new Texture("https://i.imgur.com/PfIilbS.png"));
+
+        const r2 = new RigidBody({
+            mass: 1,
+            elasticity: 0.1,
+            isKinematic: true
+        })
+        floor.addComponent(r2)
+
+        const b2 = new BoxCollider({
+            offset: Vector.zero,
+            size: new Vector(2000, 80)
+        }, r2);
+        floor.addComponent(b2)
+        this.activeScene.objects.push(floor);
+
+
+        const s1 = new Sprite({
+            position: new Vector(700, 500),
+            rotation: new Vector(0, 0),
+            scale: new Vector(500, 80)
+        }, new Texture("https://i.imgur.com/PfIilbS.png"));
+
+        const s1RB = new RigidBody({
+            mass: 1,
+            elasticity: 0.1,
+            isKinematic: true
+        })
+        s1.addComponent(s1RB)
+
+        const s1C = new BoxCollider({
+            offset: Vector.zero,
+            size: new Vector(500, 80)
+        }, s1RB);
+        s1.addComponent(s1C)
+        this.activeScene.objects.push(s1);
 
         this.start();
     }
