@@ -7,6 +7,7 @@ import RigidBody from "./physics/rigidbody.js";
 import PhysicsEngine from "./physics/physics.js";
 import BoxCollider from "./physics/box-collider.js";
 import Time from "./system/time.js";
+import CustomComponent from "./objects/custom-component.js";
 
 class Game {
 
@@ -26,65 +27,82 @@ class Game {
             gravity: new Vector(0, 50),
         })
 
-/*
-        this.options.renderEngine.drawImage(new Texture("https://i.imgur.com/ZnVA1ma.png"), new Vector(75, 75), new Vector(0, 0), new Vector(160, 200));
-*/
-
         this.activeScene = new Scene();
 
         const background = new Sprite({
             position: new Vector(500, 500),
             rotation: new Vector(0, 0),
-            scale: new Vector(2000, 2000)
-        }, new Texture("https://i.imgur.com/wghI3OE.png"));
+            scale: new Vector(2000, 1000)
+        }, new Texture("https://i.imgur.com/IsSNQSG.png"));
 
         this.activeScene.objects.push(background);
 
 
-        const image = new Sprite({
+        const player = new Sprite({
             position: new Vector(200, 20),
             rotation: new Vector(0, 0),
             scale: new Vector(160, 200)
-        }, new Texture("https://i.imgur.com/ZnVA1ma.png"));
+        }, new Texture("https://i.imgur.com/hDS6kU3.jpeg"));
 
         const rigidBody = new RigidBody({
             mass: 1,
-            elasticity:0.2,
+            elasticity:0.1,
             isKinematic: false
         });
-        image.addComponent(rigidBody)
+        player.addComponent(rigidBody)
         const boxCollider = new BoxCollider({
             offset: Vector.zero,
             size: new Vector(160, 200)
         }, rigidBody)
 
-        image.addComponent(boxCollider)
-/*        image.addComponent(new CustomComponent({
-            onUpdate: function(component){
-                console.log(component.getParent().getPosition().y + " - " + component.getParent().getPosition().x)
-            }
-        }))*/
-        this.activeScene.objects.push(image);
+        player.addComponent(boxCollider)
+
+        this.activeScene.objects.push(player);
 
         const floor = new Sprite({
-            position: new Vector(50, 600),
+            position: new Vector(500, 600),
             rotation: new Vector(0, 0),
-            scale: new Vector(1000, 40)
-        }, new Texture("https://i.imgur.com/ZnVA1ma.png"));
+            scale: new Vector(2000, 80)
+        }, new Texture("https://i.imgur.com/PfIilbS.png"));
 
         const r2 = new RigidBody({
             mass: 1,
-            elasticity: 0.2,
+            elasticity: 0.1,
             isKinematic: true
         })
         floor.addComponent(r2)
 
         const b2 = new BoxCollider({
             offset: Vector.zero,
-            size: new Vector(1000, 40)
+            size: new Vector(2000, 80)
         }, r2);
         floor.addComponent(b2)
         this.activeScene.objects.push(floor);
+
+        let keys = {};
+
+        let wasOnGround = false;
+
+        player.addComponent(new CustomComponent({
+            onUpdate: function(){
+                if(keys[" "] && rigidBody.onGround) {
+                    rigidBody.addForce(new Vector(0, -1000));
+                }
+                if(keys["d"]) {
+                    player.getPosition().x += 10;
+                }
+                if(keys["a"]) {
+                    player.getPosition().x -= 10;
+                }
+            }
+        }))
+        document.onkeydown = function (e) {
+            keys[e.key] = true;
+        };
+
+        document.onkeyup = function (e) {
+            keys[e.key] = false;
+        };
 
         this.start();
     }
