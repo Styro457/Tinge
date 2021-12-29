@@ -1,4 +1,5 @@
 import Renderer from "../renderer.js"
+import Camera from "../../camera/camera.js";
 
 /**
  * Canvas render object
@@ -23,6 +24,7 @@ class CanvasRenderer extends Renderer {
     }
 
     drawImage(texture, position, rotation, scale) {
+        position = Camera.worldToScreenPosition(position);
         this.getContext().drawImage(texture.image, position.x-(scale.x/2), position.y-(scale.y/2), scale.x, scale.y);
     }
 

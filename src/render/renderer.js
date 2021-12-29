@@ -13,6 +13,13 @@ class Renderer {
 
     constructor(options) {
         this.options = options;
+
+        /**
+         * The main camera
+         * @type {Camera}
+         * @public
+         */
+        this.mainCamera = undefined;
     }
 
     /**

@@ -8,6 +8,8 @@ import PhysicsEngine from "./physics/physics.js";
 import BoxCollider from "./physics/box-collider.js";
 import Time from "./system/time.js";
 import CustomComponent from "./objects/custom-component.js";
+import Renderer from "./render/renderer.js";
+import Camera from "./camera/camera.js";
 
 class Game {
 
@@ -23,6 +25,11 @@ class Game {
             height: 720
         });
 
+        this.renderEngine.mainCamera = new Camera({
+            position: new Vector(0, 0),
+            scale: new Vector(1, 1)
+        });
+
         this.physicsEngine = new PhysicsEngine({
             gravity: new Vector(0, 50),
         })
@@ -32,7 +39,7 @@ class Game {
         const background = new Sprite({
             position: new Vector(500, 500),
             rotation: new Vector(0, 0),
-            scale: new Vector(2000, 1000)
+            scale: new Vector(4000, 2000)
         }, new Texture("https://i.imgur.com/IsSNQSG.png"));
 
         this.activeScene.objects.push(background);
@@ -65,6 +72,8 @@ class Game {
 
         player.addComponent(new CustomComponent({
             onUpdate: function(){
+                Renderer.instance.mainCamera.getPosition().x = player.getPosition().x;
+                Renderer.instance.mainCamera.getPosition().y = player.getPosition().y;
                 if(keys[" "] && rigidBody.onGround) {
                     rigidBody.addForce(new Vector(0, -1000));
                 }
