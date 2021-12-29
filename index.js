@@ -13,6 +13,7 @@ const game = new Game({});
 
 new Camera({
     position: new Vector(0, -270),
+    zoom: 0.5
 });
 
 const background = new Sprite(
@@ -39,6 +40,12 @@ player.addComponent(new CustomComponent({
         }
         if(keys["a"]) {
             player.getPosition().x -= 10;
+        }
+        if(keys["="]) {
+            Renderer.instance.mainCamera.properties.zoom += 0.01;
+        }
+        if(keys["-"]) {
+            Renderer.instance.mainCamera.properties.zoom -= 0.01;
         }
     }
 }));

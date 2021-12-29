@@ -25,6 +25,7 @@ class CanvasRenderer extends Renderer {
 
     drawImage(texture, position, rotation, scale) {
         position = Camera.worldToScreenPosition(position);
+        scale = Camera.worldToScreenSize(scale);
         this.getContext().drawImage(texture.image, position.x-(scale.x/2), position.y-(scale.y/2), scale.x, scale.y);
     }
 
