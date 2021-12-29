@@ -97,8 +97,15 @@ class BoxCollider extends Collider {
             this.rigidBody.onGround = true;
         }
         else {
-            this.rigidBody.velocity.x -= collider.rigidBody.velocity.x;
-            this.rigidBody.velocity.x *= -1*elasticity;
+            //push objects apart
+            //penetration[0] - penetration on the right
+            //penetration[1] - penetration on the left
+            if(penetration[1] > penetration[0])
+                this.getParent().getPosition().x -= penetration[1];
+            else
+                this.getParent().getPosition().x += penetration[0];
+
+            this.rigidBody.addForce(new Vector(-(1+elasticity)*(this.rigidBody.velocity.x-collider.rigidBody.velocity.x), 0));
         }
 
     }
