@@ -4,10 +4,10 @@ class InputManager {
 
     constructor() {
         document.addEventListener('keydown', event => {
-            InputManager.keysPressed = true;
+            InputManager.keysPressed[event.key] = true;
         })
         document.addEventListener('keyup', event => {
-            InputManager.keysPressed = false;
+            InputManager.keysPressed[event.key] = false;
         })
     }
 
