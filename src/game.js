@@ -22,6 +22,8 @@ class Game {
             gravity: new Vector(0, 50),
         })
 
+        new InputManager();
+
         this.activeScene = new Scene();
     }
 
