@@ -3,6 +3,7 @@ import Vector from "./math/vector.js"
 import Scene from "./scene/scene.js"
 import PhysicsEngine from "./physics/physics.js";
 import Time from "./system/time.js";
+import InputManager from "./input/input.js";
 
 class Game {
 
