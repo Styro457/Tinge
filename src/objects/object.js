@@ -6,6 +6,8 @@
  * @param {Vector} properties.position The position of the object
  * @param {Vector} properties.rotation The rotation of the object
  * @param {Vector} properties.scale The scale of the object
+ * @param {Vector} properties.parent The parent of this object
+ * @param {Vector} properties.children The children of this object
  */
 
 class Object {
@@ -13,6 +15,10 @@ class Object {
     constructor(properties) {
         this.properties = properties;
         this.components = [];
+
+        if(properties.children === undefined) {
+            this.properties.children = [];
+        }
     }
 
     /**
@@ -22,6 +28,9 @@ class Object {
      * @returns {Vector}
      */
     getPosition() {
+        if(this.getParent() !== undefined) {
+            return this.properties.position + this.getParent().getPosition();
+        }
         return this.properties.position;
     }
 
@@ -32,6 +41,9 @@ class Object {
      * @returns {Vector}
      */
     getRotation() {
+        if(this.getParent() !== undefined) {
+            return this.properties.position + this.getParent().getRotation();
+        }
         return this.properties.rotation;
     }
 
@@ -42,6 +54,9 @@ class Object {
      * @returns {Vector}
      */
     getScale() {
+        if(this.getParent() !== undefined) {
+            return this.properties.position + this.getParent().getScale();
+        }
         return this.properties.scale;
     }
 
@@ -86,6 +101,51 @@ class Object {
             }
         })
         return result;
+    }
+
+    /**
+     * Returns the parent of this object
+     * @name getParent
+     * @function
+     * @returns {object}
+     */
+    getParent() {
+        return this.properties.parent;
+    }
+
+    /**
+     * Sets this object as the parent of another object
+     * @name addChildren
+     * @function
+     * @param {Object} object The object to link to this object
+     */
+    addChildren(object) {
+        object.properties.parent = object;
+        this.properties.children.push(object);
+    }
+
+    /**
+     * Removes the parent of one of this objects children
+     * @name removeChildren
+     * @function
+     * @param {Object} object The object to unlink from this object
+     */
+    removeChildren(object) {
+        object.properties.parent = undefined;
+        const index = this.getChildren().indexOf(object);
+        if (index > -1) {
+            this.getChildren().splice(index, 1);
+        }
+    }
+
+    /**
+     * Returns the children of this object
+     * @name getChildren
+     * @function
+     * @returns {Object[]}
+     */
+    getChildren() {
+        return this.properties.parent;
     }
 
 }
