@@ -8,6 +8,7 @@ import CustomComponent from "./src/objects/custom-component.js";
 import Renderer from "./src/render/renderer.js";
 import Camera from "./src/camera/camera.js";
 import Vector from "./src/math/vector.js";
+import InputManager from "./src/input/input.js";
 
 const game = new Game({});
 
@@ -32,19 +33,19 @@ player.addComponent(boxCollider);
 player.addComponent(new CustomComponent({
     onUpdate: function(){
         Renderer.instance.mainCamera.getPosition().x = player.getPosition().x;
-        if(keys[" "] && rigidBody.onGround) {
+        if(InputManager.keysPressed[" "] && rigidBody.onGround) {
             rigidBody.addForce(new Vector(0, -1000));
         }
-        if(keys["d"]) {
+        if(InputManager.keysPressed["d"]) {
             player.getPosition().x += 10;
         }
-        if(keys["a"]) {
+        if(InputManager.keysPressed["a"]) {
             player.getPosition().x -= 10;
         }
-        if(keys["="]) {
+        if(InputManager.keysPressed["="]) {
             Renderer.instance.mainCamera.properties.zoom += 0.01;
         }
-        if(keys["-"]) {
+        if(InputManager.keysPressed["-"]) {
             Renderer.instance.mainCamera.properties.zoom -= 0.01;
         }
     }
@@ -70,16 +71,5 @@ platform.addComponent(platformRigidBody)
 const platformCollider = new BoxCollider({offset: Vector.zero, size: new Vector(500, 80)}, platformRigidBody);
 platform.addComponent(platformCollider)
 game.activeScene.objects.push(platform);
-
-
-let keys = {};
-
-document.onkeydown = function (e) {
-    keys[e.key] = true;
-};
-
-document.onkeyup = function (e) {
-    keys[e.key] = false;
-};
 
 game.start();
