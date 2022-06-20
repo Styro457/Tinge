@@ -4,7 +4,7 @@
  * @constructor
  * @param {object} properties Object properties
  * @param {Vector} properties.position The position of the object
- * @param {Vector} properties.rotation The rotation of the object
+ * @param {number} properties.rotation The rotation of the object in radians
  * @param {Vector} properties.scale The scale of the object
  * @param {Vector} properties.parent The parent of this object
  * @param {Vector} properties.children The children of this object
@@ -35,10 +35,10 @@ class Object {
     }
 
     /**
-     * Returns the rotation of the object
+     * Returns the rotation of the object in radians
      * @name getRotation
      * @function
-     * @returns {Vector}
+     * @returns {number}
      */
     getRotation() {
         if(this.getParent() !== undefined) {
