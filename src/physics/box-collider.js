@@ -1,6 +1,7 @@
 import Collider from "./collider.js";
 import Rectangle from "../math/shapes/rectangle.js";
 import Vector from "../math/vector.js";
+import Collisions from "./collision-checks.js";
 
 /**
  * Box Collider
@@ -18,6 +19,7 @@ class BoxCollider extends Collider {
     constructor(properties, rigidBody) {
         super(properties, rigidBody);
         this.boundingBox = new Rectangle(0, 0, properties.size.x, properties.size.y);
+
     }
 
     /**
@@ -46,81 +48,51 @@ class BoxCollider extends Collider {
     }
 
     handleCollision(collider) {
-        const penetration = new Array(4);
+        if(this.rigidBody.getMass() !== 50) return;
+        let cos = Math.cos(this.getParent().getRotation());
+        let sin = Math.sin(this.getParent().getRotation());
+        let p1 = [
+            new Vector((this.boundingBox.x-this.boundingBox.width/2), this.boundingBox.y+this.boundingBox.height/2),
+            new Vector(this.boundingBox.x+this.boundingBox.width/2, this.boundingBox.y+this.boundingBox.height/2),
+            new Vector(this.boundingBox.x-this.boundingBox.width/2, this.boundingBox.y-this.boundingBox.height/2),
+            new Vector(this.boundingBox.x+this.boundingBox.width/2, this.boundingBox.y-this.boundingBox.height/2),
+        ];
+        for (let current = 0; current < p1.length; current++) {
+            let xc = p1[current].x;
+            p1[current].x = (p1[current].x-this.boundingBox.x)*cos - (p1[current].y-this.boundingBox.y)*sin + this.boundingBox.x;
+            p1[current].y = (p1[current].y-this.boundingBox.y)*cos + (xc-this.boundingBox.x)*sin + this.boundingBox.y;
 
-        const rightEdge = this.boundingBox.x + this.boundingBox.width/2;
-        const colliderRightEdge = collider.boundingBox.x + collider.boundingBox.width/2;
-        const leftEdge = this.boundingBox.x - this.boundingBox.width/2;
-        const colliderLeftEdge = collider.boundingBox.x - collider.boundingBox.width/2;
-
-        if(rightEdge < colliderRightEdge) {
-            penetration[0] = rightEdge-colliderLeftEdge; // penetration on the right
         }
-        else if(leftEdge > colliderLeftEdge) {
-            penetration[1] = colliderRightEdge-leftEdge; // penetration on the left
+        let collisionPoint = Collisions.polyPoly(p1,
+            [
+                    new Vector(collider.boundingBox.x-collider.boundingBox.width/2, collider.boundingBox.y+collider.boundingBox.height/2),
+                    new Vector(collider.boundingBox.x+collider.boundingBox.width/2, collider.boundingBox.y+collider.boundingBox.height/2),
+                    new Vector(collider.boundingBox.x-collider.boundingBox.width/2, collider.boundingBox.y-collider.boundingBox.height/2),
+                    new Vector(collider.boundingBox.x+collider.boundingBox.width/2, collider.boundingBox.y-collider.boundingBox.height/2),
+                ],
+        )
+        if(collisionPoint !== false) {
+            // P - the collision point
+            // A - center of mass of this object
+            // B - center of mass of the object collided with
+            let AP = this.getParent().getPosition().clone().subtractV(collisionPoint);
+            let BP = collider.getParent().getPosition().clone().subtractV(collisionPoint);
+
+            const elasticity = (this.rigidBody.getElasticity()+collider.rigidBody.getElasticity())/2;
+
+            // V(x) - velocity
+            // M(x) - mass
+
+            // {-(1+e) * [V(A)-V(B)] * AP} / [AP * AP * (1/M(A) + 1/M(B))]
+            const equationTop = (BP.clone().subtractV(AP).multiplyV(AP).multiply(-(1+elasticity)));
+            const equationBottom = AP.clone().multiplyV(AP).multiply(1/this.rigidBody.getMass() + 1/collider.rigidBody.getMass());
+            const impulse = equationTop.divideV(equationBottom).multiply(0.5);
+
+            this.rigidBody.velocity = new Vector(0, 0);
+            this.rigidBody.addForce(impulse.clone().multiplyV(AP));
+            collider.rigidBody.velocity = new Vector(0, 0);
+            collider.rigidBody.addForce(impulse.clone().multiplyV(AP.multiply(-1)));
         }
-
-        const topEdge = this.boundingBox.y - this.boundingBox.height/2;
-        const colliderTopEdge = collider.boundingBox.y - collider.boundingBox.height/2;
-        const bottomEdge = this.boundingBox.y + this.boundingBox.height/2;
-        const colliderBottomEdge = collider.boundingBox.y + collider.boundingBox.height/2;
-
-        if(topEdge > colliderTopEdge) {
-            penetration[2] = colliderBottomEdge-topEdge; // penetration on the top
-        }
-        else if(bottomEdge < colliderBottomEdge) {
-            penetration[3] = bottomEdge-colliderTopEdge; // penetration on the bottom
-        }
-
-        let bestAxis = 0;
-        let zeroCount = 0;
-
-        for(let i = 0; i < 4; i++) {
-            if(penetration[i] === undefined) {
-                penetration[i] = 0;
-                zeroCount++;
-            }
-            else if(penetration[i] > penetration[bestAxis]) {
-                bestAxis = i;
-            }
-        }
-
-        //penetrating in only one direction
-        if(zeroCount === 3) {
-            if(bestAxis > 1) bestAxis -= 2;
-            else bestAxis += 2;
-        }
-
-        const elasticity = (this.rigidBody.getElasticity()+collider.rigidBody.getElasticity())/2;
-        if(bestAxis === 0 || bestAxis === 1) {
-            //push objects apart
-            //penetration[2] - penetration on top
-            //penetration[3] - penetration on the bottom
-            if(penetration[3] > penetration[2])
-                this.getParent().getPosition().y -= penetration[3];
-                //this.rigidBody.addForce(new Vector(0, penetration[3]*1000));
-            else {
-                this.getParent().getPosition().y += penetration[2];
-                //this.rigidBody.addForce(new Vector(0, penetration[2]*-1000));
-                this.rigidBody.onGround = true;
-            }
-
-            this.rigidBody.addForce(new Vector(0, -(1+elasticity)*(this.rigidBody.velocity.y-collider.rigidBody.velocity.y)));
-        }
-        else {
-            //push objects apart
-            //penetration[0] - penetration on the right
-            //penetration[1] - penetration on the left
-            if(penetration[1] > penetration[0])
-                this.getParent().getPosition().x += penetration[1];
-                //this.rigidBody.addForce(new Vector(penetration[1]*-1000, 0));
-            else
-                this.getParent().getPosition().x -= penetration[0];
-                //this.rigidBody.addForce(new Vector(penetration[0]*1000, 0));
-
-            this.rigidBody.addForce(new Vector(-(1+elasticity)*(this.rigidBody.velocity.x-collider.rigidBody.velocity.x), 0));
-        }
-
     }
 
     getSurface() {

@@ -11,6 +11,7 @@ import Time from "../system/time.js";
  * @param {number} properties.mass The mass of the object
  * @param {number} properties.elasticity The coefficient of elasticity of the object (between 1 and 0)
  * @param {boolean} properties.isKinematic Whether physics affect the rigidbody
+ * @param {boolean} properties.useGravity Whether this object is affected by gravity
  */
 class RigidBody extends PhysicsComponent {
 
@@ -107,17 +108,18 @@ class RigidBody extends PhysicsComponent {
         }
 
         //add gravity
-        if(!this.onGround) {
+        if(!this.onGround && this.properties.useGravity) {
             this.velocity.addV(PhysicsEngine.instance.options.gravity)
         }
 
         //add air resistance
         if(this.collider !== undefined) {
-            /*this.addForce(this.velocity.clone()
+            this.addForce(this.velocity.clone()
                 .multiplyV(this.velocity)
-                .multiplyV(this.collider.getSurface().multiply(-1*PhysicsEngine.AIR_DENSITY*this.collider.getDragCoefficient()))
-            );*/
-            this.velocity.multiply(PhysicsEngine.AIR_DENSITY*this.collider.getDragCoefficient());
+                .multiplyV(this.velocity.clone().normalize())
+                .multiplyV(this.collider.getSurface())
+                .multiply(PhysicsEngine.AIR_DENSITY*this.collider.getDragCoefficient())
+            );
         }
 
         this.getParent().getPosition().addV(this.velocity.clone().multiply(Time.deltaTime));
