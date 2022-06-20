@@ -37,10 +37,17 @@ player.addComponent(new CustomComponent({
             rigidBody.addForce(new Vector(0, 1000));
         }
         if(InputManager.keysPressed["d"]) {
-            player.getPosition().x += 10;
+            if(rigidBody.velocity.x < 700)
+                rigidBody.addForce(new Vector(140, 0));
+            //player.getPosition().x += 10;
         }
-        if(InputManager.keysPressed["a"]) {
-            player.getPosition().x -= 10;
+        else if(InputManager.keysPressed["a"]) {
+            if(rigidBody.velocity.x > -700)
+                rigidBody.addForce(new Vector(-140, 0));
+            //player.getPosition().x -= 10;
+        }
+        else {
+            rigidBody.velocity.x *= 0.8;
         }
         if(InputManager.keysPressed["="]) {
             Renderer.instance.mainCamera.properties.zoom += 0.01;
