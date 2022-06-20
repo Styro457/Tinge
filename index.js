@@ -13,37 +13,37 @@ import InputManager from "./src/input/input.js";
 const game = new Game({});
 
 new Camera({
-    position: new Vector(0, 270),
-    zoom: 0.5
+    position: new Vector(0, 100),
+    zoom: 1
 });
 
 const background = new Sprite(
-    {position: new Vector(0, 0), rotation: new Vector(0, 0), scale: new Vector(4000, 2000)},
+    {position: new Vector(0, 0), rotation: new Vector(0, 0), scale: new Vector(1080, 720)},
     new Texture("https://i.imgur.com/IsSNQSG.png"));
 game.activeScene.objects.push(background);
 
 
 const player = new Sprite(
-    {position: new Vector(-500, 400), rotation: new Vector(0, 0), scale: new Vector(160, 200)},
+    {position: new Vector(-25, 200), rotation: new Vector(0, 0), scale: new Vector(30, 40)},
     new Texture("https://i.imgur.com/hDS6kU3.jpeg"));
-const rigidBody = new RigidBody({mass: 1, elasticity:0.1, isKinematic: false});
+const rigidBody = new RigidBody({mass: 10, elasticity:0.1, isKinematic: false});
 player.addComponent(rigidBody);
-const boxCollider = new BoxCollider({offset: Vector.zero, size: new Vector(160, 200)}, rigidBody);
+const boxCollider = new BoxCollider({offset: Vector.zero, size: new Vector(30, 40)}, rigidBody);
 player.addComponent(boxCollider);
 player.addComponent(new CustomComponent({
     onUpdate: function(){
         Renderer.instance.mainCamera.getPosition().x = player.getPosition().x;
         if(InputManager.keysPressed[" "] && rigidBody.onGround) {
-            rigidBody.addForce(new Vector(0, 1000));
+            rigidBody.addForce(new Vector(0, 300));
         }
         if(InputManager.keysPressed["d"]) {
-            if(rigidBody.velocity.x < 700)
-                rigidBody.addForce(new Vector(140, 0));
+            if(rigidBody.velocity.x < 180)
+                rigidBody.addForce(new Vector(40, 0));
             //player.getPosition().x += 10;
         }
         else if(InputManager.keysPressed["a"]) {
-            if(rigidBody.velocity.x > -700)
-                rigidBody.addForce(new Vector(-140, 0));
+            if(rigidBody.velocity.x > -180)
+                rigidBody.addForce(new Vector(-40, 0));
             //player.getPosition().x -= 10;
         }
         else {
@@ -60,23 +60,13 @@ player.addComponent(new CustomComponent({
 game.activeScene.objects.push(player);
 
 const floor = new Sprite(
-    {position: new Vector(0, 10), rotation: new Vector(0, 0), scale: new Vector(2000, 80)},
+    {position: new Vector(0, 10), rotation: new Vector(0, 0), scale: new Vector(500, 20)},
     new Texture("https://i.imgur.com/PfIilbS.png"));
-const floorRigidBody = new RigidBody({mass: 1, elasticity: 0.1, isKinematic: true
+const floorRigidBody = new RigidBody({mass: 10, elasticity: 0.1, isKinematic: true
 })
 floor.addComponent(floorRigidBody);
-const floorCollider = new BoxCollider({offset: Vector.zero, size: new Vector(2000, 80)}, floorRigidBody);
+const floorCollider = new BoxCollider({offset: Vector.zero, size: new Vector(500, 20)}, floorRigidBody);
 floor.addComponent(floorCollider);
 game.activeScene.objects.push(floor);
-
-const platform = new Sprite(
-    {position: new Vector(20, 100), rotation: new Vector(0, 0), scale: new Vector(500, 80)},
-    new Texture("https://i.imgur.com/PfIilbS.png"));
-
-const platformRigidBody = new RigidBody({mass: 1, elasticity: 0.1, isKinematic: true})
-platform.addComponent(platformRigidBody)
-const platformCollider = new BoxCollider({offset: Vector.zero, size: new Vector(500, 80)}, platformRigidBody);
-platform.addComponent(platformCollider)
-game.activeScene.objects.push(platform);
 
 game.start();

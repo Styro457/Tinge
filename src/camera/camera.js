@@ -48,7 +48,7 @@ class Camera extends Object {
     static worldToScreenPosition(worldPosition) {
         return worldPosition.clone()
             .subtractV(Renderer.instance.mainCamera.getPosition())
-            .multiply(Renderer.instance.mainCamera.properties.zoom)
+            .multiply(Renderer.instance.mainCamera.properties.zoom+1)
             .addV(new Vector(Renderer.instance.getWidth()/2, Renderer.instance.getHeight()/-2))
             .multiplyV(new Vector(1, -1));
     }
@@ -61,7 +61,7 @@ class Camera extends Object {
      * @returns {Vector} The size on the screen
      */
     static worldToScreenSize(worldSize) {
-        return worldSize.clone().multiply(Renderer.instance.mainCamera.properties.zoom);
+        return worldSize.clone().multiply(Renderer.instance.mainCamera.properties.zoom+1);
     }
 
 }

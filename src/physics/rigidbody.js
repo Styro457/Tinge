@@ -46,7 +46,7 @@ class RigidBody extends PhysicsComponent {
      * @param {Vector} acceleration The force vector
      */
     addForce(acceleration) {
-        this.velocity.addV(acceleration.multiply(this.getMass()));
+        this.velocity.addV(acceleration.divide(this.getMass()/10));
     }
 
     /**
@@ -120,8 +120,9 @@ class RigidBody extends PhysicsComponent {
             this.velocity.multiply(PhysicsEngine.AIR_DENSITY*this.collider.getDragCoefficient());
         }
 
-        this.getParent().getPosition().x += this.velocity.x * Time.deltaTime;
-        this.getParent().getPosition().y += this.velocity.y * Time.deltaTime;
+        this.getParent().getPosition().addV(this.velocity.clone().multiply(Time.deltaTime));
+        /*this.getParent().getPosition().x += this.velocity.x * Time.deltaTime;
+        this.getParent().getPosition().y += this.velocity.y * Time.deltaTime;*/
     }
 
 }
