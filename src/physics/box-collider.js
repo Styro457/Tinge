@@ -48,7 +48,7 @@ class BoxCollider extends Collider {
     }
 
     handleCollision(collider) {
-        if(this.rigidBody.getMass() !== 50) return;
+        if(this.rigidBody.getMass() !== 10) return;
         let cos = Math.cos(this.getParent().getRotation());
         let sin = Math.sin(this.getParent().getRotation());
         let p1 = [
@@ -97,6 +97,10 @@ class BoxCollider extends Collider {
 
     getSurface() {
         return new Vector(this.boundingBox.width, this.boundingBox.height);
+    }
+
+    getArea() {
+        return this.boundingBox.width*this.boundingBox.height;
     }
 
     getDragCoefficient() {

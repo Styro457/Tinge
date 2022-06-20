@@ -26,7 +26,7 @@ game.activeScene.objects.push(background);
 const player = new Sprite(
     {position: new Vector(-25, 200), rotation: 0, scale: new Vector(40, 40)},
     new Texture("https://i.imgur.com/hDS6kU3.jpeg"));
-const rigidBody = new RigidBody({mass: 50, elasticity:0.1, isKinematic: false, useGravity: false});
+const rigidBody = new RigidBody({mass: 10, elasticity:0.1, isKinematic: false, useGravity: false});
 player.addComponent(rigidBody);
 const boxCollider = new BoxCollider({offset: Vector.zero, size: new Vector(40, 40)}, rigidBody);
 player.addComponent(boxCollider);
@@ -53,6 +53,12 @@ player.addComponent(new CustomComponent({
             rigidBody.addForce(new Vector(0, -10));
             //player.properties.position.x -= 5;
         }
+        else if(InputManager.keysPressed["l"]) {
+            rigidBody.addAngularVelocity(1);
+        }
+        else if(InputManager.keysPressed["k"]) {
+            rigidBody.addAngularVelocity(-1);
+        }
         else {
             //rigidBody.velocity.x *= 0.8;
         }
@@ -69,7 +75,7 @@ game.activeScene.objects.push(player);
 const player2 = new Sprite(
     {position: new Vector(-80, 200), rotation: 0, scale: new Vector(30, 40)},
     new Texture("https://i.imgur.com/hDS6kU3.jpeg"));
-const rigidBody2 = new RigidBody({mass: 10, elasticity:0.1, isKinematic: false, useGravity: false});
+const rigidBody2 = new RigidBody({mass: 5, elasticity:0.1, isKinematic: false, useGravity: false});
 player2.addComponent(rigidBody2);
 const boxCollider2 = new BoxCollider({offset: Vector.zero, size: new Vector(30, 40)}, rigidBody2);
 player2.addComponent(boxCollider2);

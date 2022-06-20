@@ -26,6 +26,13 @@ class RigidBody extends PhysicsComponent {
         this.velocity = new Vector(0, 0);
 
         /**
+         * The angular velocity of the object
+         * @type {number}
+         * @public
+         */
+        this.angularVelocity = 0;
+
+        /**
          * Whether the object is supported by something and is not falling
          * @type {boolean}
          * @public
@@ -48,6 +55,16 @@ class RigidBody extends PhysicsComponent {
      */
     addForce(acceleration) {
         this.velocity.addV(acceleration.divide(this.getMass()/10));
+    }
+
+    /**
+     * Increases the angular velocity
+     * @name addAngularVelocity
+     * @function
+     * @param {number} acceleration The amount to increase angular velocity by
+     */
+    addAngularVelocity(acceleration) {
+        this.angularVelocity += acceleration;
     }
 
     /**
@@ -120,11 +137,13 @@ class RigidBody extends PhysicsComponent {
                 .multiplyV(this.collider.getSurface())
                 .multiply(PhysicsEngine.AIR_DENSITY*this.collider.getDragCoefficient())
             );
+
+            const negative = this.angularVelocity < 0 ? 1 : -1;
+            this.angularVelocity -= negative*(this.angularVelocity*this.angularVelocity*this.collider.getArea()*PhysicsEngine.AIR_DENSITY*this.collider.getDragCoefficient());
         }
 
         this.getParent().getPosition().addV(this.velocity.clone().multiply(Time.deltaTime));
-        /*this.getParent().getPosition().x += this.velocity.x * Time.deltaTime;
-        this.getParent().getPosition().y += this.velocity.y * Time.deltaTime;*/
+        this.getParent().properties.rotation += this.angularVelocity * Time.deltaTime;
     }
 
 }
