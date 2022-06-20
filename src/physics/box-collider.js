@@ -97,9 +97,11 @@ class BoxCollider extends Collider {
             //penetration[2] - penetration on top
             //penetration[3] - penetration on the bottom
             if(penetration[3] > penetration[2])
-                this.getParent().getPosition().y -= penetration[3];
+                //this.getParent().getPosition().y -= penetration[3];
+                this.rigidBody.addForce(new Vector(0, penetration[3]*100));
             else {
-                this.getParent().getPosition().y += penetration[2];
+                //this.getParent().getPosition().y += penetration[2];
+                this.rigidBody.addForce(new Vector(0, penetration[2]*-100));
                 this.rigidBody.onGround = true;
             }
 
@@ -110,9 +112,11 @@ class BoxCollider extends Collider {
             //penetration[0] - penetration on the right
             //penetration[1] - penetration on the left
             if(penetration[1] > penetration[0])
-                this.getParent().getPosition().x += penetration[1];
+                //this.getParent().getPosition().x += penetration[1];
+                this.rigidBody.addForce(new Vector(penetration[1]*-100, 0));
             else
-                this.getParent().getPosition().x -= penetration[0];
+                //this.getParent().getPosition().x -= penetration[0];
+                this.rigidBody.addForce(new Vector(penetration[0]*100, 0));
 
             this.rigidBody.addForce(new Vector(-(1+elasticity)*(this.rigidBody.velocity.x-collider.rigidBody.velocity.x), 0));
         }

@@ -113,10 +113,11 @@ class RigidBody extends PhysicsComponent {
 
         //add air resistance
         if(this.collider !== undefined) {
-            this.addForce(this.velocity.clone()
+            /*this.addForce(this.velocity.clone()
                 .multiplyV(this.velocity)
                 .multiplyV(this.collider.getSurface().multiply(-1*PhysicsEngine.AIR_DENSITY*this.collider.getDragCoefficient()))
-            );
+            );*/
+            this.velocity.multiply(PhysicsEngine.AIR_DENSITY*this.collider.getDragCoefficient());
         }
 
         this.getParent().getPosition().x += this.velocity.x * Time.deltaTime;

@@ -15,10 +15,6 @@ class Scene {
     }
 
     update() {
-        Game.instance.physicsEngine.update();
-        this.physicsComponents.forEach(function (physicsComponent) {
-            physicsComponent.onPhysicsUpdate();
-        })
 
         this.objects.forEach(function (object) {
             object.components.forEach(function (component, index) {
@@ -35,6 +31,11 @@ class Scene {
                 component.onLateUpdate();
             });
         });
+
+        Game.instance.physicsEngine.update();
+        this.physicsComponents.forEach(function (physicsComponent) {
+            physicsComponent.onPhysicsUpdate();
+        })
     }
 
 }
