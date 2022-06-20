@@ -44,8 +44,18 @@ class Vector {
     }
 
     divideV(vector) {
-        this.x /= vector.x;
-        this.y /= vector.y;
+        if(vector.x !== 0)
+            this.x /= vector.x;
+        if(vector.y !== 0)
+            this.y /= vector.y;
+        return this;
+    }
+
+    normalize() {
+        if(this.x !== 0)
+            this.x /= Math.abs(this.x);
+        if(this.y !== 0)
+            this.y /= Math.abs(this.y);
         return this;
     }
 
