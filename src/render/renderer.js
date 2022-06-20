@@ -75,7 +75,7 @@ class Renderer {
      * @function
      * @param {Texture} texture The image source
      * @param {Vector} position The position of the image on the screen
-     * @param {Vector} rotation The rotation of the image
+     * @param {number} rotation The rotation of the image in radians
      * @param {Vector} scale The scale of the image
      */
     drawImage(texture, position, rotation, scale) {}
