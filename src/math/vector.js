@@ -37,6 +37,18 @@ class Vector {
         return this;
     }
 
+    divide(value) {
+        this.x /= value;
+        this.y /= value;
+        return this;
+    }
+
+    divideV(vector) {
+        this.x /= vector.x;
+        this.y /= vector.y;
+        return this;
+    }
+
     clone() {
         return new Vector(this.x, this.y);
     }
