@@ -49,7 +49,8 @@ class Camera extends Object {
         return worldPosition.clone()
             .subtractV(Renderer.instance.mainCamera.getPosition())
             .multiply(Renderer.instance.mainCamera.properties.zoom)
-            .addV(new Vector(Renderer.instance.getWidth()/2, Renderer.instance.getHeight()/2));
+            .addV(new Vector(Renderer.instance.getWidth()/2, Renderer.instance.getHeight()/-2))
+            .multiplyV(new Vector(1, -1));
     }
 
     /**
