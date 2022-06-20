@@ -73,14 +73,22 @@ class BoxCollider extends Collider {
         }
 
         let bestAxis = 0;
+        let zeroCount = 0;
 
-        for(let i = 1; i < 4; i++) {
+        for(let i = 0; i < 4; i++) {
             if(penetration[i] === undefined) {
                 penetration[i] = 0;
+                zeroCount++;
             }
             else if(penetration[i] > penetration[bestAxis]) {
                 bestAxis = i;
             }
+        }
+
+        //penetrating in only one direction
+        if(zeroCount === 3) {
+            if(bestAxis > 1) bestAxis -= 2;
+            else bestAxis += 2;
         }
 
         const elasticity = (this.rigidBody.getElasticity()+collider.rigidBody.getElasticity())/2;
@@ -90,20 +98,21 @@ class BoxCollider extends Collider {
             //penetration[3] - penetration on the bottom
             if(penetration[3] > penetration[2])
                 this.getParent().getPosition().y -= penetration[3];
-            else
+            else {
                 this.getParent().getPosition().y += penetration[2];
+                this.rigidBody.onGround = true;
+            }
 
             this.rigidBody.addForce(new Vector(0, -(1+elasticity)*(this.rigidBody.velocity.y-collider.rigidBody.velocity.y)));
-            this.rigidBody.onGround = true;
         }
         else {
             //push objects apart
             //penetration[0] - penetration on the right
             //penetration[1] - penetration on the left
             if(penetration[1] > penetration[0])
-                this.getParent().getPosition().x -= penetration[1];
+                this.getParent().getPosition().x += penetration[1];
             else
-                this.getParent().getPosition().x += penetration[0];
+                this.getParent().getPosition().x -= penetration[0];
 
             this.rigidBody.addForce(new Vector(-(1+elasticity)*(this.rigidBody.velocity.x-collider.rigidBody.velocity.x), 0));
         }
