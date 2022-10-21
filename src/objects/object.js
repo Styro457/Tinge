@@ -69,7 +69,6 @@ class Object {
     addComponent(component) {
         this.components.push(component);
         component.properties.parent = this;
-        this.getComponent()
     }
 
     /**
