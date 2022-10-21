@@ -1,6 +1,7 @@
 class Vector {
 
     static zero = new Vector(0, 0);
+    static kEpsilon = 0.00001;
 
     constructor(x, y) {
         this.x = x;
@@ -52,10 +53,13 @@ class Vector {
     }
 
     normalize() {
-        if(this.x !== 0)
-            this.x /= Math.abs(this.x);
-        if(this.y !== 0)
-            this.y /= Math.abs(this.y);
+        let magnitude = this.magnitude();
+        if (magnitude > Vector.kEpsilon)
+            this.divideV(magnitude);
+        else {
+            this.x = 0;
+            this.y = 0;
+        }
         return this;
     }
 
