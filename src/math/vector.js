@@ -63,6 +63,9 @@ class Vector {
         return new Vector(this.x, this.y);
     }
 
+    dotProduct(vector) {
+        return this.x*vector.x + this.y+vector.y;
+    }
 }
 
 export default Vector;
