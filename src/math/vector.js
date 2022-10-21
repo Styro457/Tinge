@@ -66,6 +66,11 @@ class Vector {
     dotProduct(vector) {
         return this.x*vector.x + this.y+vector.y;
     }
+
+    magnitude() {
+        return Math.sqrt(this.x * this.x + this.y * this.y);
+    }
+
 }
 
 export default Vector;
