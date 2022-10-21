@@ -1,4 +1,5 @@
 import Game from "../game.js";
+import PhysicsComponent from "../physics/physics-component.js";
 
 /**
  * Scene class
@@ -31,11 +32,13 @@ class Scene {
                 component.onLateUpdate();
             });
         });
-
         Game.instance.physicsEngine.update();
-        this.physicsComponents.forEach(function (physicsComponent) {
-            physicsComponent.onPhysicsUpdate();
-        })
+        this.objects.forEach(function (object) {
+            object.components.forEach(function (component, index) {
+                if(component instanceof PhysicsComponent)
+                    component.onPhysicsUpdate();
+            });
+        });
     }
 
 }
